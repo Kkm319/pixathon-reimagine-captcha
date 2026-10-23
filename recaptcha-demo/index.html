@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f8f9fa">
+<title>Reimagine CAPTCHA — Human Verification</title>
+<style>
+:root{font-family:Arial,Helvetica,sans-serif;color:#202124;background:#f8f9fa}*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px}.wrap{width:min(100%,420px)}.brand{font-size:14px;color:#5f6368;margin:0 0 12px 4px}.captcha{background:white;border:1px solid #dadce0;border-radius:3px;box-shadow:0 1px 4px #0002;padding:20px;display:flex;align-items:center;gap:16px;cursor:pointer}.check{width:28px;height:28px;border:2px solid #5f6368;border-radius:2px;display:grid;place-items:center;flex-shrink:0;background:#fff}.check.checked{background:#1a73e8;border-color:#1a73e8;color:#fff}.captcha-title{font-size:16px;flex:1}.logo{width:54px;text-align:center;color:#5f6368;font-size:10px}.logo b{display:block;font-size:22px;color:#4285f4}.foot{display:flex;justify-content:flex-end;gap:12px;color:#5f6368;font-size:10px;margin-top:8px}.panel{display:none;background:white;border:1px solid #dadce0;box-shadow:0 2px 10px #0002;margin-top:12px;padding:18px}.panel.show{display:block}.blue{background:#4285f4;color:white;padding:15px;margin:-18px -18px 16px}.blue h1{font-size:19px;margin:0 0 4px}.blue p{font-size:13px;margin:0}.hint{font-size:13px;color:#5f6368;margin:0 0 12px}.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}.tile{border:0;padding:0;aspect-ratio:1;background:#e8eaed;cursor:pointer;position:relative;overflow:hidden;display:grid;place-items:center;font-size:46px}.tile.selected{outline:4px solid #4285f4;outline-offset:-4px}.tile.selected:after{content:'✓';position:absolute;right:5px;top:5px;border-radius:50%;background:#4285f4;color:white;font-size:14px;width:21px;height:21px;display:grid;place-items:center}.tile:focus-visible,button:focus-visible{outline:3px solid #174ea6;outline-offset:2px}.actions{display:flex;justify-content:space-between;align-items:center;margin-top:16px;gap:8px}.actions small{color:#5f6368}.btn{border:0;border-radius:3px;padding:11px 18px;background:#1a73e8;color:white;font-weight:bold;cursor:pointer}.btn.secondary{background:white;color:#1a73e8}.status{font-size:13px;min-height:20px;margin:12px 0 0;color:#5f6368}.success{color:#137333}.error{color:#b3261e}.reset{border:0;background:none;color:#1a73e8;cursor:pointer;font-size:13px}@media(max-width:380px){.tile{font-size:36px}}
+</style>
+</head>
+<body><main class="wrap"><p class="brand">PIXATHON · REIMAGINE CAPTCHA</p>
+<section class="captcha" id="captcha" role="button" tabindex="0" aria-label="I'm not a robot, open human verification challenge"><span class="check" id="check" aria-hidden="true"></span><span class="captcha-title">I'm not a robot</span><span class="logo"><b>◉</b>CAPTCHA<br>DEMO</span></section>
+<div class="foot"><span>Privacy</span><span>Terms</span></div>
+<section class="panel" id="panel" aria-live="polite"><header class="blue"><h1 id="challenge-title">Select all tiles with traffic lights</h1><p id="challenge-subtitle">Click verify once there are none left.</p></header><p class="hint" id="hint">Select every tile that contains a traffic light.</p><div class="tiles" id="tiles"></div><div class="actions"><button class="reset" id="new" type="button">↻ New challenge</button><button class="btn" id="verify" type="button">VERIFY</button></div><p class="status" id="status" role="status"></p></section>
+<p class="status" id="overall" role="status"></p></main>
+<script>
+(()=>{'use strict';
+const challenges=[
+{title:'Select all tiles with traffic lights',hint:'Select every tile that contains a traffic light.',target:'🚦',distractors:['🛑','🚗','🚲','🚥','🚌','🚕','🚦','🚙','🚧'],correct:[0,4,7]},
+{title:'Select all tiles with bicycles',hint:'Select every tile that contains a bicycle.',target:'🚲',distractors:['🚗','🚲','🛵','🚴','🚌','🚲','🚕','🚲','🚦'],correct:[1,5,7]},
+{title:'Select all tiles with buses',hint:'Select every tile that contains a bus.',target:'🚌',distractors:['🚐','🚕','🚌','🚗','🚙','🚍','🚲','🚌','🚦'],correct:[2,5,7]}
+];
+let current=0,selected=new Set(),verified=false;
+const $=id=>document.getElementById(id),captcha=$('captcha'),panel=$('panel'),check=$('check'),tiles=$('tiles'),status=$('status'),overall=$('overall');
+function render(){const c=challenges[current];selected.clear();$('challenge-title').textContent=c.title;$('hint').textContent=c.hint;$('challenge-subtitle').textContent='Choose all matching tiles, then press VERIFY.';tiles.replaceChildren();c.distractors.forEach((emoji,i)=>{const b=document.createElement('button');b.type='button';b.className='tile';b.textContent=emoji;b.setAttribute('aria-label','Tile '+(i+1));b.setAttribute('aria-pressed','false');b.addEventListener('click',()=>{if(verified)return;if(selected.has(i))selected.delete(i);else selected.add(i);b.classList.toggle('selected',selected.has(i));b.setAttribute('aria-pressed',String(selected.has(i)));status.textContent='';});tiles.appendChild(b)});status.textContent='';status.className='status'}
+function open(){if(verified)return;panel.classList.add('show');overall.textContent='';render();panel.scrollIntoView({behavior:'smooth',block:'nearest'})}
+function reset(){verified=false;check.className='check';check.textContent='';captcha.setAttribute('aria-label',"I'm not a robot, open human verification challenge");panel.classList.remove('show');overall.textContent='';overall.className='status';current=(current+1)%challenges.length;render()}
+captcha.addEventListener('click',open);captcha.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}});
+$('new').addEventListener('click',reset);
+$('verify').addEventListener('click',()=>{const correct=new Set(challenges[current].correct),ok=selected.size===correct.size&&[...selected].every(i=>correct.has(i));if(!ok){status.textContent='Not quite. Try again by selecting every matching tile.';status.className='status error';return}verified=true;panel.classList.remove('show');check.className='check checked';check.textContent='✓';captcha.setAttribute('aria-label','Verification complete');overall.textContent='Verification complete — demo challenge passed.';overall.className='status success'});
+render();
+})();
+</script></body></html>
