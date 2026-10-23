@@ -1,30 +1,27 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#101b35">
-  <title>Pixathon — Human Verification</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f8f9fa">
+<title>Pixathon — Reimagine CAPTCHA</title><link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="page">
-    <header class="topbar"><a class="brand" href="#" aria-label="Pixathon home"><span class="brand-mark">P</span> PIXATHON</a><span class="tag">A CAPTCHA CONCEPT</span></header>
-    <section class="verify-card" aria-live="polite">
-      <div class="eyebrow"><span class="live-dot"></span> HUMAN VERIFICATION</div>
-      <h1>Prove you're human.<br><span>Make it fun.</span></h1>
-      <p class="intro">Complete one tiny challenge to continue. No blurry pictures. No endless clicking.</p>
-      <div class="progress-row"><span id="challenge-count">CHALLENGE 1 OF 1</span><span class="timer" id="timer">00:25</span></div>
-      <div class="progress-track"><div id="progress-bar"></div></div>
-      <section id="challenge-panel" class="challenge-panel">
-        <div class="loading-mark">✳</div><h2>Ready for a quick challenge?</h2><p>You'll get one of three playful human checks.</p>
-      </section>
-      <div id="feedback" class="feedback" role="status"></div>
-      <div class="actions"><button id="start-btn" class="primary">Start verification <span aria-hidden="true">→</span></button><button id="retry-btn" class="secondary hidden">Try another challenge</button></div>
-      <div class="footnote"><span>✦</span> A playful prototype, not real security software.</div>
-    </section>
-    <footer><span>PIXATHON BUILD</span><span>PLAY · PROVE · PROTECT</span></footer>
-  </main>
-  <script src="app.js"></script>
-</body>
-</html>
+<main class="page">
+<header class="topbar"><a class="brand" href="./" aria-label="Pixathon home"><span class="brand-mark">P</span> PIXATHON</a><span class="tag">HUMAN VERIFICATION DEMO</span></header>
+<section class="intro"><p class="eyebrow">REIMAGINE CAPTCHA</p><h1>One quick check.<br><span>Then you're in.</span></h1><p>A playful, reCAPTCHA-inspired verification demo. Complete the visual challenge to continue.</p></section>
+<section class="widget" aria-label="Human verification">
+<div id="captcha-check" class="captcha-check" role="button" tabindex="0" aria-label="I'm not a robot. Open verification challenge.">
+<span class="checkbox" id="checkbox" aria-hidden="true"></span><span class="check-label">I'm not a robot</span><span class="captcha-brand"><span class="captcha-symbol">↻</span>CAPTCHA<small>Privacy · Terms</small></span>
+</div>
+<div class="widget-foot"><span>PIXATHON VERIFICATION</span><span>DEMO ONLY</span></div>
+<section id="challenge" class="challenge hidden" aria-labelledby="challenge-title">
+<header class="challenge-head"><h2 id="challenge-title">Select all tiles with traffic lights</h2><p id="challenge-instruction">Click every tile that matches the object.</p></header>
+<div class="challenge-body"><p class="prompt" id="prompt">Select all squares with <strong>traffic lights</strong>.</p><div id="tiles" class="tiles" aria-label="Image selection grid"></div><p class="status" id="status" role="status" aria-live="polite"></p>
+<div class="challenge-actions"><button id="refresh" class="icon-button" type="button" aria-label="New challenge" title="New challenge">↻</button><button id="verify" class="verify-button" type="button">VERIFY</button></div></div>
+</section>
+<p id="result" class="result" role="status" aria-live="polite"></p>
+<div class="footnote">✦ This is a class prototype, not Google reCAPTCHA or production security software.</div>
+</section>
+<footer><span>PIXATHON BUILD</span><span>PLAY · PROVE · PROTECT</span></footer>
+</main>
+<script src="app.js"></script>
+</body></html>
