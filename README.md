@@ -1,16 +1,17 @@
 # Pixathon — Reimagine CAPTCHA
 
-A browser-based, playful CAPTCHA concept for Pixathon.
+A browser-based, reCAPTCHA-inspired visual verification demo.
 
 ## Run
-Open `index.html` in a browser, or enable GitHub Pages for the repository and open the repository site.
+Open `index.html` in a browser. The page uses only the local `style.css` and `app.js` files; no build step or external library is required.
 
-## Challenge types
-- **Doodle-to-Target** — draw a continuous path from a key to a lock.
-- **Catch the Glitch** — select the different symbol.
-- **Rhythm Micro-Jitter** — tap four times with consistent timing.
+## Demo flow
+1. Select **I'm not a robot** to open a tile-selection challenge.
+2. Select all tiles that match the prompt.
+3. Press **VERIFY**. Incorrect selections can be retried; the refresh button generates a new challenge.
+4. A correct selection displays a success state.
 
-The root page is the canonical app and uses `style.css` and `app.js`. Duplicate launchers were removed so there is one clear app entry point.
+Challenges use built-in emoji illustrations to avoid image-download or CDN failures.
 
-## Limitations
-This is a class/demo concept, not production-grade CAPTCHA or security software. These client-side mini-games cannot reliably distinguish humans from automated scripts.
+## Important limitation
+This is a visual interaction prototype inspired by CAPTCHA UIs, not Google's reCAPTCHA and not production security. Its answers are stored client-side and can be bypassed; do not use it to protect real accounts or services.
