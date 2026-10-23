@@ -1,17 +1,9 @@
-# Pixathon — Reimagine CAPTCHA
+# Pixathon — HUMAN.exe CAPTCHA Arcade
 
-A browser-based, reCAPTCHA-inspired visual verification demo.
+A single-file browser arcade with three interactive mini-game verification challenges: **Catch the Glitch**, **Rhythm Tap**, and **Doodle-to-Target**.
 
 ## Run
-Open `index.html` in a browser. The page uses only the local `style.css` and `app.js` files; no build step or external library is required.
+Open `index.html` in a modern browser. The game interfaces and game logic are embedded in the single HTML file, so no build step or local CSS/JS files are needed.
 
-## Demo flow
-1. Select **I'm not a robot** to open a tile-selection challenge.
-2. Select all tiles that match the prompt.
-3. Press **VERIFY**. Incorrect selections can be retried; the refresh button generates a new challenge.
-4. A correct selection displays a success state.
-
-Challenges use built-in emoji illustrations to avoid image-download or CDN failures.
-
-## Important limitation
-This is a visual interaction prototype inspired by CAPTCHA UIs, not Google's reCAPTCHA and not production security. Its answers are stored client-side and can be bypassed; do not use it to protect real accounts or services.
+## Notes
+This is a CAPTCHA-inspired interaction prototype for a demo or hackathon. It is not Google's reCAPTCHA and is not production security; client-side game logic can be inspected or bypassed. Some game assets may load from external CDNs when online.
