@@ -52,6 +52,8 @@ pixathon-reimagine-captcha/
 
 - **Krinjal** — [@Kkm319](https://github.com/Kkm319)
 - **Samridhi Chourasia** — [@samcodes11](https://github.com/samcodes11)
+- **Jiya Joshi** -
+[@JiJ888](https://GitHub.com/JiJ888)
 
 ---
 
